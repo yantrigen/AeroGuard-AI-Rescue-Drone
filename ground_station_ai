@@ -1,0 +1,24 @@
+import cv2
+
+# Arduino Serial Monitor se jo IP Address mila tha, uske aage ':81/stream' lagana hai
+URL = "http://192.168.1.5:81/stream" 
+
+cap = cv2.VideoCapture(URL)
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        print("Camera se connect nahi ho paya!")
+        break
+        
+    # Yaha par AI/YOLO object detection ka code aayega
+    # results = model(frame)
+    
+    cv2.imshow("AeroGuard Live Feed", frame)
+
+    # 'q' dabakar video band karne ke liye
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
